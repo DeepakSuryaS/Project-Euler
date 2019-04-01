@@ -9,14 +9,13 @@ import math
 def factors(number):
   factor = set()
   sqrt = int(math.sqrt(number))
-  for x in range(2, sqrt):
+  for x in range(2, sqrt+1):
     if number % x == 0:
-      factor.add(x)
+      factor.add(int(x))
   
   currSize = len(factor)
-  for i in factor:
-    for x in range(0, currSize):
-      factor.add(number / i)
+  for x in range(0, currSize):
+    factor.add(int(number / next(iter(factor))))
   
   factor.add(number)
   return factor
@@ -26,14 +25,14 @@ def largestPrime(number):
   factor = factors(number)
   for fact in factor:
     counter = 0
-    for divisor in range(0, fact+1):
+    for divisor in range(1, fact+1):
       if fact % divisor == 0:
-        counter += counter
+        counter += 1
       if counter > 1 and divisor < fact:
         break
       if divisor == fact:
         largest = max(largest, fact)
-    return largest
+  return largest
 
 number = 600851475143
 print(largestPrime(number))
